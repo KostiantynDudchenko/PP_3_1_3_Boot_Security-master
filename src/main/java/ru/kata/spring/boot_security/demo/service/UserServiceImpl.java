@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.RoleDAO;
 import ru.kata.spring.boot_security.demo.dao.UserDAO;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 
@@ -25,7 +23,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.roleDAO = roleDAO;
     }
 
-
     @Override
     public List<User> getUsers() {
         return userDAO.getUsers();
@@ -34,58 +31,33 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional
     public void save(User user) {
-        userDAO.save(user);
+        userDAO.saveUser(user);
     }
 
     @Override
-    public User show(Long id) {
-        return userDAO.show(id);
+    public User getUserById(Long id) {
+        return userDAO.getUserById(id);
     }
 
     @Override
     @Transactional
     public void update(User user) {
-        userDAO.update(user);
+        userDAO.updateUser(user);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        userDAO.delete(id);
+        userDAO.deleteUser(id);
     }
 
     @Override
     public User findByName(String name) {
-        return userDAO.findByName(name);
+        return userDAO.findUserByName(name);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userDAO.findByName(username);
-    }
-
-    @PostConstruct
-    private void postConstruct() {
-        Role role_admin = new Role(1L, "ROLE_ADMIN");
-        roleDAO.saveRole(role_admin);
-        Role role_user = new Role(2L, "ROLE_USER");
-        roleDAO.saveRole(role_user);
-
-       /* User admin = new User();
-        admin.setName("name1");
-        admin.setSurname("lastname1");
-        admin.setAge(33);
-        admin.setPassword(bCryptPasswordEncoder.encode("12345"));
-        admin.addRole(role_admin);
-
-        User user = new User();
-        user.setName("name2");
-        user.setSurname("lastname2");
-        user.setAge(44);
-        user.setPassword(bCryptPasswordEncoder.encode("12345"));
-        user.addRole(role_user);
-
-        userDAO.save(admin);
-        userDAO.save(user);*/
+        return userDAO.findUserByName(username);
     }
 }

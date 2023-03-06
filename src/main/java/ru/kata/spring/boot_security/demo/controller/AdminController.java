@@ -22,7 +22,7 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    // Вывод всех полбзователей
+    // Вывод всех пользователей
     @GetMapping("/users")
     public String getUser(Model model) {
         model.addAttribute("users", userService.getUsers());
@@ -38,7 +38,8 @@ public class AdminController {
     }
 
     @PostMapping("/newUser")
-    public String addUser(@ModelAttribute User user, @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles) {
+    public String addUser(@ModelAttribute User user,
+                          @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles) {
         Set<Role> roleSet = new HashSet<>();
         for (String role : checkBoxRoles) {
             roleSet.add(roleService.getRoleByName(role));
@@ -51,12 +52,13 @@ public class AdminController {
     // Обновление юзера
     @GetMapping("/users/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("user", userService.show(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "/admin/edit";
     }
 
     @PatchMapping("/users/{id}")
-    public String update(@ModelAttribute("user") User user, @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles) {
+    public String update(@ModelAttribute("user") User user,
+                         @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles) {
         Set<Role> roleSet = new HashSet<>();
         for (String role : checkBoxRoles) {
             roleSet.add(roleService.getRoleByName(role));

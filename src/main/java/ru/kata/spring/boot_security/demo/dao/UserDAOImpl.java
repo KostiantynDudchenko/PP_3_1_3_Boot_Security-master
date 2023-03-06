@@ -2,8 +2,10 @@ package ru.kata.spring.boot_security.demo.dao;
 
 
 import javax.persistence.*;
+
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.User;
+
 import java.util.List;
 
 
@@ -18,27 +20,27 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void save(User user) {
+    public void saveUser(User user) {
         entityManager.persist(user);
     }
 
     @Override
-    public User show(Long id) {
+    public User getUserById(Long id) {
         return entityManager.find(User.class, id);
     }
 
     @Override
-    public void update(User user) {
+    public void updateUser(User user) {
         entityManager.merge(user);
     }
 
     @Override
-    public void delete(Long id) {
-        entityManager.remove(entityManager.contains(show(id)) ? show(id) : entityManager.merge(show(id)));
+    public void deleteUser(Long id) {
+        entityManager.remove(entityManager.contains(getUserById(id)) ? getUserById(id) : entityManager.merge(getUserById(id)));
     }
 
     @Override
-    public User findByName(String name) {
+    public User findUserByName(String name) {
         TypedQuery<User> queryUser = entityManager.createQuery("select r from User r where r.name=:name",
                 User.class).setParameter("name", name);
         return queryUser.getSingleResult();

@@ -11,7 +11,7 @@ public class Role implements GrantedAuthority {
     @Id
     @Column(name = "role_id")
     private Long roleId;
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
     @Transient
     @ManyToMany(mappedBy = "roles")

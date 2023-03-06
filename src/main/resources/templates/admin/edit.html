@@ -11,6 +11,10 @@
 <form th:method="post" th:action="@{/admin/users/{id}(id=${user.getUserId()})}" th:object="${user}">
     <input type="hidden" name="_method" value="patch">
 
+    <label for="userId">User Id: </label>
+    <input type="text" th:field="*{userId}" id="userId"/>
+    <br><br>
+
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <br><br>
@@ -23,9 +27,9 @@
     <label for="password">Password</label>
     <input type="text" th:field="*{password}" id="password">
     <br><br>
-    <input type="checkbox" name="checkBoxRoles" value="USER"/>USER
+    <input type="checkbox" name="checkBoxRoles" value="ROLE_USER"/>USER
     <br><br>
-    <input type="checkbox" name="checkBoxRoles" value="ADMIN"/>ADMIN
+    <input type="checkbox" name="checkBoxRoles" value="ROLE_ADMIN"/>ADMIN
     <br><br><br>
 
     <input type="submit" value="Update"/>

@@ -41,9 +41,4 @@ public class RoleDAOImpl implements RoleDAO {
                 Role.class).setParameter("role", name);
         return queryRole.getSingleResult();
     }
-
-    @Override
-    public void saveRole(Role role) {
-        entityManager.persist(role);
-    }
 }

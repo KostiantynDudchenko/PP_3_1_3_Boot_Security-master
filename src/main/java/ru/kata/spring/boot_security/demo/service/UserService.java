@@ -10,7 +10,7 @@ public interface UserService {
 
     void save(User user);
 
-    User show(Long id);
+    User getUserById(Long id);
 
     void update(User user);
 
