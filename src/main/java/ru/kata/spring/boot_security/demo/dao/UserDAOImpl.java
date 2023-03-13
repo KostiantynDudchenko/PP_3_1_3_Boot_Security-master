@@ -16,7 +16,6 @@ public class UserDAOImpl implements UserDAO {
     private EntityManager entityManager;
 
     @Override
-    //@Query("select distinct u from User u left join fetch u.roles")
     public List<User> getUsers() {
         return entityManager.createQuery("select u from User u left join fetch u.roles", User.class).getResultList();
     }
@@ -44,7 +43,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User findUserByName(String name) {
         TypedQuery<User> queryUser = entityManager.createQuery("select u from User u left join fetch u.roles where u.name=:name",
-                User.class).setParameter("name", name); //select r from User r where r.name=:name
+                User.class).setParameter("name", name);
         return queryUser.getSingleResult();
     }
 }
